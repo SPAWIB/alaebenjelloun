@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Me | Alae Ben Jelloun</title>
+    <meta
+      name="description"
+      content="Get in touch with Alae Ben Jelloun for full stack development services and inquiries."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Contact Me</h1>
+      <p>
+        I'm excited to hear from you! Please use the form below to reach out
+        with any questions or project inquiries.
+      </p>
+    </header>
+
+    <main class="contact-container">
+      <div class="contact-form">
+        <h2>Get in Touch</h2>
+        <form id="contact-form">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            aria-label="Enter your name"
+            required
+          />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            aria-label="Enter your email"
+            required
+          />
+
+          <label for="message">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            aria-label="Enter your message"
+            required
+          ></textarea>
+
+          <button type="submit" class="cta">Send Message</button>
+          <p id="form-status" class="form-status"></p>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Alae Ben Jelloun. All rights reserved.</p>
+    </footer>
+
+    <!-- Include EmailJS SDK -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+      (function () {
+        emailjs.init("1zAtOj8q-yqE7PN8E"); // Your User ID
+      })();
+
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent default form submission
+
+          const formStatus = document.getElementById("form-status");
+          formStatus.textContent = "Sending...";
+          formStatus.style.color = "#00e0ff"; // Set color to match theme
+
+          emailjs.sendForm("service_vuqps8d", "template_qi24j3k", this).then(
+            function () {
+              formStatus.textContent = "Message Sent Successfully!";
+              formStatus.style.color = "green";
+              document.getElementById("contact-form").reset();
+            },
+            function (error) {
+              formStatus.textContent =
+                "Failed to send message. Please try again.";
+              formStatus.style.color = "red";
+            }
+          );
+        });
+    </script>
+  </body>
+</html>
